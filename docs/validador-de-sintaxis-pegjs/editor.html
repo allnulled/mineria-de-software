@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validador de Sintaxis con PEG.js</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      resize: vertical;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    pre {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .error-highlight {
+      background-color: #ffbaba !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>Validador de Sintaxis con PEG.js</h1>
+  <div class="container">
+    <textarea id="inputText" placeholder="Introduce el texto a analizar">Hello, World!</textarea>
+    <button onclick="validateSyntax()">Validar Sintaxis</button>
+    <pre id="result"></pre>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pegjs/0.9.0/peg.js"></script>
+  <script>
+    const grammar = `
+      start = 'Hello,' _* name:[A-Za-z]+ '!' { return name.join(''); }
+      _ = __ / ___
+      __ = " " / "\\t"
+      ___ = "\\r\\n" / "\\r" / "\\n"
+    `;
+
+    function validateSyntax() {
+      const inputText = document.getElementById('inputText').value;
+
+      try {
+        const parser = PEG.buildParser(grammar);
+        const result = parser.parse(inputText);
+        document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+        document.getElementById('inputText').classList.remove('error-highlight');
+      } catch (error) {
+        document.getElementById('result').innerText = `Error de sintaxis: ${error.message}`;
+        highlightError(error.location);
+      }
+    }
+
+    function highlightError(location) {
+      const inputText = document.getElementById('inputText');
+      const start = location.start.offset;
+      const end = location.end.offset;
+      const text = inputText.value;
+
+      inputText.classList.add('error-highlight');
+      inputText.setSelectionRange(start, end);
+    }
+  </script>
+</body>
+</html>
