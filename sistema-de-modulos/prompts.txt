@@ -1,0 +1,19 @@
+1. Puedes hacer un sistema de módulos asíncronos en JavaScript?
+2. Me gustaría que los módulos se guardasen en un objeto.
+3. Podrías hacer un ejemplo de sistema de módulos AMD sencillo en JavaScript?
+4. (En la respuesta, importaba la librería de requirejs, entonces:) Podrías recrear la lógica de requirejs?
+5. (En la respuesta, imprimía muchos ficheros, entonces:) Dándome solo el fichero de myRequire.js, podrías hacer que soportara módulos cargados con funciones asíncronas?
+6. Podrías envolver esta lógica en una clase?
+7. Puedes pasarlo a castellano?
+
+[Bingo]
+
+8. Y podrías hacerlo para PHP?
+9. No, el mismo código que has hecho en JavaScript, porque lo has hecho muy bien, pero pasado a PHP.
+10. Pero en castellano.
+
+[Bingo...]
+
+11. Y si te pido este mismo código en Ruby?
+
+[Bingo]

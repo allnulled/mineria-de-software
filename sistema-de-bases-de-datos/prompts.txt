@@ -1,0 +1,12 @@
+1. Puedes hacer una base de datos en JavaScript (Node.js) basado en ficheros?
+2. Puede ser en castellano?
+
+[Bingo]
+
+3. Puedes hacer lo mismo para PHP?
+
+[Bingo]
+
+4. Y ahora en Ruby?
+
+[Bingo]

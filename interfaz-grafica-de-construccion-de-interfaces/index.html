@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Builder</title>
+    <style>
+        #page-builder {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .toolbar {
+            margin-bottom: 10px;
+        }
+
+        .canvas {
+            border: 2px dashed #ccc;
+            min-height: 300px;
+            padding: 20px;
+        }
+
+        .draggable {
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div id="page-builder">
+        <div class="toolbar">
+            <button id="add-text-btn">Agregar Texto</button>
+            <button id="add-image-btn">Agregar Imagen</button>
+        </div>
+        <div class="canvas" id="canvas"></div>
+    </div>
+
+    <script>
+        // Elementos disponibles para agregar al canvas
+        const elements = [
+            { type: 'text', content: 'Lorem ipsum dolor sit amet' },
+            { type: 'text', content: 'Consectetur adipiscing elit' },
+            { type: 'image', src: 'https://via.placeholder.com/150' },
+            { type: 'image', src: 'https://via.placeholder.com/150' }
+        ];
+
+        // Función para agregar elementos al canvas
+        function addElement(type, content) {
+            const canvas = document.getElementById('canvas');
+
+            if (type === 'text') {
+                const textElement = document.createElement('p');
+                textElement.textContent = content;
+                textElement.classList.add('draggable');
+                canvas.appendChild(textElement);
+            } else if (type === 'image') {
+                const imgElement = document.createElement('img');
+                imgElement.src = content;
+                imgElement.classList.add('draggable');
+                canvas.appendChild(imgElement);
+            }
+        }
+
+        // Manejador de eventos para botones de agregar elementos
+        document.getElementById('add-text-btn').addEventListener('click', () => {
+            addElement('text', 'Nuevo texto');
+        });
+
+        document.getElementById('add-image-btn').addEventListener('click', () => {
+            addElement('image', 'https://via.placeholder.com/150');
+        });
+
+        // Función para iniciar el arrastre de elementos
+        function dragStart(event) {
+            event.dataTransfer.setData('text/plain', event.target.id);
+        }
+
+        // Función para permitir soltar elementos en el canvas
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        // Función para soltar elementos en el canvas
+        function drop(event) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData('text/plain');
+            const draggedElement = document.getElementById(data);
+            const canvas = document.getElementById('canvas');
+            canvas.appendChild(draggedElement);
+        }
+
+        // Agregar eventos de arrastrar y soltar a todos los elementos en el canvas
+        const draggableElements = document.querySelectorAll('.draggable');
+        draggableElements.forEach(element => {
+            element.addEventListener('dragstart', dragStart);
+        });
+
+        const canvas = document.getElementById('canvas');
+        canvas.addEventListener('dragover', allowDrop);
+        canvas.addEventListener('drop', drop);
+    </script>
+</body>
+</html>

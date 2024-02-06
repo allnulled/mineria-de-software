@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizador de AST XML</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        display: flex;
+        height: 100vh;
+    }
+    .panel {
+        flex: 1;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    #xmlInput {
+        height: calc(100% - 40px);
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        box-sizing: border-box;
+        resize: none;
+    }
+    #astOutput,
+    #astTree {
+        height: calc(50% - 20px);
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+    .node {
+        margin-left: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="panel">
+        <h2>XML Input</h2>
+        <textarea id="xmlInput" placeholder="Introduce tu XML aquí..."></textarea>
+    </div>
+    <div class="panel">
+        <h2>AST Output</h2>
+        <pre id="astOutput"></pre>
+    </div>
+    <div class="panel">
+        <h2>AST Tree</h2>
+        <div id="astTree"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    // Función para analizar el XML y generar el AST
+    function generarAST() {
+        const xmlInput = document.getElementById('xmlInput').value;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlInput, "text/xml");
+        const astObject = parseXML(xmlDoc);
+        document.getElementById('astOutput').innerText = JSON.stringify(astObject, null, 2);
+
+        // Mostrar el JSON en el tercer panel de una manera bonita
+        const astTreeContainer = document.getElementById('astTree');
+        astTreeContainer.innerHTML = '';
+        astTreeContainer.appendChild(renderTree(astObject));
+    }
+
+    // Función para convertir XML en AST
+    function parseXML(xmlDoc) {
+        const xmlInput = document.getElementById('xmlInput').value;
+        return parseNode(xmlDoc.documentElement, 0, xmlInput.length);
+    }
+
+    // Función recursiva para parsear nodos XML
+    function parseNode(node, start, end) {
+        const parsedNode = {
+            name: node.nodeName,
+            attributes: parseAttributes(node),
+            children: [],
+            start: start,
+            end: end
+        };
+
+        for (let i = 0; i < node.childNodes.length; i++) {
+            const childNode = node.childNodes[i];
+            if (childNode.nodeType === 1) { // 1: Element Node
+                const childStart = xmlInput.outerHTML.indexOf(childNode.outerHTML, start);
+                const childEnd = childStart + childNode.outerHTML.length;
+                parsedNode.children.push(parseNode(childNode, childStart, childEnd));
+            } else if (childNode.nodeType === 3) { // 3: Text Node
+                if (childNode.nodeValue.trim() !== "") {
+                    parsedNode.children.push(childNode.nodeValue.trim());
+                }
+            }
+        }
+
+        return parsedNode;
+    }
+
+    // Función para parsear los atributos de un nodo XML
+    function parseAttributes(node) {
+        const attributes = {};
+        for (let i = 0; i < node.attributes.length; i++) {
+            const attribute = node.attributes[i];
+            attributes[attribute.nodeName] = attribute.nodeValue;
+        }
+        return attributes;
+    }
+
+    // Función para renderizar el árbol de manera bonita
+    function renderTree(node) {
+        const container = document.createElement('div');
+        const nameElement = document.createElement('div');
+        nameElement.textContent = node.name;
+        nameElement.classList.add('node');
+        container.appendChild(nameElement);
+
+        if (node.attributes) {
+            const attributesList = document.createElement('ul');
+            for (const [key, value] of Object.entries(node.attributes)) {
+                const attributeItem = document.createElement('li');
+                attributeItem.textContent = `${key}: ${value}`;
+                attributesList.appendChild(attributeItem);
+            }
+            container.appendChild(attributesList);
+        }
+
+        if (node.children && node.children.length > 0) {
+            const childrenList = document.createElement('ul');
+            for (const child of node.children) {
+                const childItem = document.createElement('li');
+                if (typeof child === 'object') {
+                    childItem.appendChild(renderTree(child));
+                } else {
+                    childItem.textContent = child;
+                }
+                childrenList.appendChild(childItem);
+            }
+            container.appendChild(childrenList);
+        }
+
+        return container;
+    }
+
+    // Evento keyup del textarea para actualizar el AST en tiempo real
+    document.getElementById('xmlInput').addEventListener('keyup', generarAST);
+
+    // Generar AST inicial al cargar la página
+    generarAST();
+</script>
+</body>
+</html>

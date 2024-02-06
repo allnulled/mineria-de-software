@@ -1,0 +1,12 @@
+1. Puedes implementar un sistema de internacionalización de textos en JavaScript?
+2. Olvida el HTML. Centrémonos en el JavaScript.
+3. Puedes wrapearlo en una clase?
+4. En lugar de tener una función de actualizarTextos, podría haber una función que se diga obtenerTexto a la cual le pases una clave, y como segundo parámetro opcional el idioma (porque por defecto usaría el que esté seleccionado en idiomaActual), y te devuelva el string en ese idioma?
+
+[Bingo]
+
+5. Puedes hacer lo mismo pero en PHP ahora?
+
+[Bingo]
+
+6. 

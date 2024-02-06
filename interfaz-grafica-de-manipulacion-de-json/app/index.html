@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizador de JSON</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        display: flex;
+        height: 100vh;
+    }
+    .panel {
+        flex: 1;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    #jsonInput {
+        height: calc(100% - 40px);
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        box-sizing: border-box;
+        resize: none;
+    }
+    #jsonTree {
+        height: calc(100% - 40px);
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+    .node {
+        margin-left: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="panel">
+        <h2>JSON Input</h2>
+        <textarea id="jsonInput" placeholder="Introduce tu JSON aquí..." spellcheck="false"></textarea>
+    </div>
+    <div class="panel">
+        <h2>JSON Tree</h2>
+        <div id="jsonTree"></div>
+    </div>
+</div>
+
+<script>
+    // Función para analizar el JSON y generar el árbol
+    function generarArbol() {
+        const jsonInput = document.getElementById('jsonInput').value;
+        let jsonObject;
+        try {
+            jsonObject = JSON.parse(jsonInput);
+        } catch (error) {
+            console.error('Error al analizar JSON:', error);
+            return;
+        }
+
+        // Mostrar el JSON en el árbol
+        const jsonTreeContainer = document.getElementById('jsonTree');
+        jsonTreeContainer.innerHTML = '';
+        jsonTreeContainer.appendChild(renderTree(jsonObject));
+    }
+
+    // Función para renderizar el árbol de manera bonita
+    function renderTree(node) {
+        const container = document.createElement('div');
+        if (typeof node === 'object' && node !== null) {
+            for (const [key, value] of Object.entries(node)) {
+                const nameElement = document.createElement('div');
+                nameElement.textContent = key;
+                nameElement.classList.add('node');
+                container.appendChild(nameElement);
+                container.appendChild(renderTree(value));
+            }
+        } else {
+            const valueElement = document.createElement('div');
+            valueElement.textContent = node;
+            valueElement.classList.add('node');
+            container.appendChild(valueElement);
+        }
+        return container;
+    }
+
+    // Evento keyup del textarea para actualizar el árbol en tiempo real
+    document.getElementById('jsonInput').addEventListener('keyup', generarArbol);
+
+    // Generar el árbol inicial al cargar la página
+    generarArbol();
+</script>
+</body>
+</html>

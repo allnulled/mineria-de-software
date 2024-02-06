@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Diálogos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        dialog {
+            max-width: 400px;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+
+<button id="abrirDialogo">Abrir Diálogo</button>
+
+<!-- Diálogo simple -->
+<dialog id="miDialogo">
+    <h2>Diálogo Simple</h2>
+    <p>Este es un diálogo simple.</p>
+    <button id="cerrarDialogo">Cerrar</button>
+</dialog>
+
+<script>
+    document.getElementById('abrirDialogo').addEventListener('click', () => {
+        const miDialogo = document.getElementById('miDialogo');
+        miDialogo.showModal();
+        document.getElementById('cerrarDialogo').addEventListener('click', () => {
+            miDialogo.close();
+        });
+    });
+</script>
+
+</body>
+</html>
