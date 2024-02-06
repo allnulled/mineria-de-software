@@ -18,3 +18,5 @@ A continuación se listan los códigos que se han podido recopilar:
 - [Sistema de manipulación de JSON](./sistema-de-manipulacion-de-jsons)
 - [Sistema de módulos](./sistema-de-modulos)
 - [Utilidades de texto](./utilidades-de-texto)
+
+Los prompts en el [PROMPTS.txt](./PROMPTS.txt).

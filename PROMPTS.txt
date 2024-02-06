@@ -1,0 +1,42 @@
+¡Claro! Aquí tienes una recopilación de todos los prompts que has utilizado en esta conversación:
+
+1. ¿Puedes hacer un sistema de módulos asíncronos en JavaScript?
+2. Me gustaría que los módulos se guardasen en un objeto.
+3. ¿Podrías hacer un ejemplo de sistema de módulos AMD sencillo en JavaScript?
+4. ¿Podrías recrear la lógica de requirejs?
+5. Dándome solo el fichero de myRequire.js, ¿podrías hacer que soportara módulos cargados con funciones asíncronas?
+6. ¿Podrías envolver esta lógica en una clase?
+7. ¿Puedes pasarlo a castellano?
+8. ¿Y podrías hacerlo para PHP?
+9. ¿Podrías hacerlo en Ruby?
+10. ¿Y en bash podrías hacerlo también?
+11. ¿Puedes hacer una base de datos en JavaScript (Node.js) basado en ficheros?
+12. ¿Puede ser en castellano?
+13. ¿Puedes hacer lo mismo para PHP?
+14. ¿Y ahora en Ruby?
+15. ¿Podrías hacer en JavaScript una clase que tenga 2 métodos: deTextoAFecha y deFechaATexto, que pueda pasar a formato "DD/MM/YYYY HH:mm:ss.xxx" o recuperarlas?
+16. ¿Podrías hacerlo sin usar moment.js?
+17. ¿Podrías hacer lo mismo pero para PHP?
+18. ¿Y ahora en Ruby?
+19. ¿Puedes crear una clase en JavaScript que tenga varios métodos: numeroAleatorio, textoAleatorio, palabraAleatoria, literaturaAleatoria?
+20. ¿Puedes añadirle un método para fechaAleatoria?
+21. ¿Puedes hacerlo en PHP?
+22. ¿Y en Ruby?
+23. ¿Podrías hacer una página en HTML y JavaScript que permita el ingreso de un texto XML, por un panel, y por otro panel que permita ver el AST que se forma de parsear el XML ingresado?
+24. ¿Perfecto. Ahora en lugar del pre, puedes usar bloques que sean arrastrables e intercambiables entre sí?
+25. ¿En lugar de mostrar la salida como un código HTML, podrías parsear el XML como XML solamente (no como HTML), y devolver el objeto del Abstract Syntax Tree resultante?
+26. ¿Puedes hacer que dentro de la lógica para generar el AST del XML, vaya el retorno de llamar a JSON.stringify, pero usando el parámetro número 2 (replacer) para discriminar y mapear solo la información que interesa de cada nodo, que es el nombre del tag, los atributos del tag y los hijos del tag?
+27. ¿Puedes quitar lo del draggable y el css?
+28. ¿Puedes hacer que en los datos que se guardan del nodo, se guarde también la posición del inicio y la posición del final del nodo dentro del texto de entrada?
+29. ¿Has tenido un error. En donde hacer «const childStart = xmlInput.indexOf», sería, creo, «const childStart = xmlInput.outerHTML.indexOf». Puede ser?
+30. ¿Lo estás haciendo muy bien, me está funcionando en mi navegador. Con el AST resultante de este proceso, donde se plasma un JSON a partir del XML, me pregunto si puedes crear un tercer panel donde se vea la estructura del JSON pero más en bonito.
+31. No me gusta. Puedes hacer tú una función que vaya construyendo la vista bonita del tercer panel, en lugar de utilizar json-tree-view?
+32. ¿Puedes hacer lo mismo para JSON?
+33. ¿Puedes hacer una función a la que yo le pase un texto base, y una lista de objetos con 2 propiedades, inicio y final, las cuales serán textos, y esta función automáticamente encuentre el primer match que empiece por el inicio, y busque a partir de ahí el primer match del final, y que con esas dos posiciones, me devuelva el texto que aparece?
+34. ¿Puedes wrapearlo en una clase que se llame UtilidadesDeTexto?
+35. ¿Puedes añadirle a esta clase una función que, en lugar de devolverte el texto encontrado entre los marcadores, reciba un tercer argumento "reemplazar" que es un texto y que te devuelve el mismo textoBase pero habiendo reemplazado cada marcador?
+36. ¿Puedes hacer que este método, que has escrito muy bien, soporte que reemplazo sea una función, y que esta función pueda devolver o no texto, y que si lo devuelve, sirva como reemplazo, y que si no lo devuelve, no reemplace nada y lo deje igual?
+37. ¿Olvida lo de la función de reemplazo. Añade un método que sea iterarMarcadores en la clase.
+38. ¿Puedes hacer una clase que sirva para la gestión de hooks, que se llame SistemaDeHooks, y que permita añadir un hook usando un texto como nombre, y opcionalmente un número como prioridad?
+39. ¿Puedes hacer que permita hooks asíncronos?
+40. ¿Puedes hacer que no falle si no encuentra ningún hook con el nombre del hook a ejecutar?
