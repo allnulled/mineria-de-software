@@ -40,3 +40,15 @@
 38. ¿Puedes hacer una clase que sirva para la gestión de hooks, que se llame SistemaDeHooks, y que permita añadir un hook usando un texto como nombre, y opcionalmente un número como prioridad?
 39. ¿Puedes hacer que permita hooks asíncronos?
 40. ¿Puedes hacer que no falle si no encuentra ningún hook con el nombre del hook a ejecutar?
+
+--------
+
+1. Pero no lo estás usando en el <app>, sino que estás creando un botón normal en HTML.
+2. Puedes separar el HTML del JavaScript?
+3. Puedes llamarlo mi-boton?
+4. Ahora para un input de tipo texto?
+5. Ahora para un fieldset?
+6. Ahora para un textarea?
+7. Ahora para un título?
+8. Podrías montarlo para que en lugar de aceptar contenido en texto, los tabs puedan pasarse como slots?
+9. Puedes hacerlo para una etiqueta (label)?
