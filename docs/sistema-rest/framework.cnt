@@ -1,0 +1,30 @@
+contract app {
+  class Database {
+    String user;
+    String password;
+    String host;
+    String port;
+    Object connection;
+    Database constructor(String user, String password, String host, String port);
+    Database initialize();
+    Object schema();
+    Array select(String table, Array where, Array sort, Integer page);
+    Object insert(String table, Object value);
+    Object update(String table, Integer id, Object value);
+    Object delete(String table, Integer id);
+  }
+  class Utilities {
+    Utilities constructor();
+    String fromDateToString(Date date);
+    Date fromStringToDate(String date);
+    String padLeft(String text, Integer length, String pad);
+    String padRight(String text, Integer length, String pad);
+  }
+  class Framework {
+    String name;
+    String version;
+    Utilities utilities;
+    Framework constructor();
+    Framework initialize();
+  }
+}

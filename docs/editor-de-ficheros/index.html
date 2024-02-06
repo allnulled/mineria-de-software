@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorador de Archivos</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://unpkg.com/dexie@3"></script>
+    <style>
+        .is_file {color: #888;}
+        .is_file:hover,
+        .is_folder:hover {cursor: pointer;background-color: #CCC;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Explorador de Archivos</h1>
+        <div>Estás en: {{ currentNode.name }}</div>
+        <button @click="goBack" :disabled="!canGoBack">Atrás</button>
+        <button @click="createFile">Crear archivo</button>
+        <button @click="createFolder">Crear carpeta</button>
+        <ul>
+            <li v-for="node in nodes" @click="selectNode(node)" :key="node.id">
+                <span :class="{is_file: !node.isFolder, is_folder: node.isFolder}">{{ node.name }}</span>
+            </li>
+        </ul>
+        <template v-if="!currentNode.isFolder">
+            <hr />
+            <div>
+                <textarea v-model="currentNode.contents" @input="updateContents"></textarea>
+            </div>
+        </template>
+    </div>
+    <script>
+        const db = new Dexie('FileManager');
+        db.version(1).stores({
+            files: '++id,name,parent,isFolder,contents'
+        });
+        db.on("populate", function(transaction) {
+            transaction.files.add({id:1, name: "{raíz}", parent:1, isFolder:true, contents: ""});
+        });
+        db.open();
+        new Vue({
+            el: '#app',
+            data: {
+                currentNode: {id:1, name: "{raíz}", parent:1, isFolder:true, contents: ""},
+                nodes: []
+            },
+            computed: {
+                canGoBack() {
+                    return this.currentNode.id !== 1;
+                }
+            },
+            mounted() {
+                this.loadNodes(1);
+            },
+            methods: {
+                loadNodes(parentId) {
+                    db.files.where({ parent: parentId }).toArray().then(nodes => {
+                        this.nodes = nodes.filter(node => node.id !== 1);
+                    });
+                },
+                selectNode(node) {
+                    if (node) {
+                        this.currentNode = node;
+                        this.loadNodes(node.id);
+                    }
+                },
+                goBack() {
+                    db.files.get(this.currentNode.parent).then(parentNode => {
+                        this.selectNode(parentNode);
+                    });
+                },
+                createFile() {
+                    const fileName = prompt('Introduce el nombre del nuevo archivo:');
+                    if (fileName) {
+                        const newNode = { name: fileName, parent: this.currentNode.id, isFolder: false, contents: "" };
+                        db.files.add(newNode).then(() => {
+                            this.loadNodes(this.currentNode.id);
+                        });
+                    }
+                },
+                createFolder() {
+                    const fileName = prompt('Introduce el nombre de la nueva carpeta:');
+                    if (fileName) {
+                        const newNode = { name: fileName, parent: this.currentNode.id, isFolder: true, contents: "" };
+                        db.files.add(newNode).then(() => {
+                            this.loadNodes(this.currentNode.id);
+                        });
+                    }
+                },
+                updateContents() {
+                    db.files.update(this.currentNode.id, { contents: this.currentNode.contents });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
