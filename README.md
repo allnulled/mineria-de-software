@@ -4,14 +4,17 @@ Recopilación de software fabricado con ChatGPT con el histórico de prompts.
 
 A continuación se listan los códigos que se han podido recopilar:
 
-- Sistema de módulos:
-   - Para [JavaScript](./sistema-de-modulos/js/sistema-de-modulos.js)
-   - Para [PHP](./sistema-de-modulos/php/sistema-de-modulos.php)
-   - Para [Ruby](./sistema-de-modulos/ruby/sistema-de-modulos.rb)
-   - Los [prompts](./sistema-de-modulos/prompts.txt)
-- Sistema de bases de datos (basado en ficheros JSON y semáforos):
-   - Para [JavaScript](./sistema-de-bases-de-datos/js/sistema-de-bases-de-datos.js)
-   - Para [PHP](./sistema-de-bases-de-datos/js/sistema-de-bases-de-datos.php)
-   - Para [Ruby](./sistema-de-bases-de-datos/js/sistema-de-bases-de-datos.rb)
-   - Los [prompts](./sistema-de-bases-de-datos/prompts.txt)
-
+- [Interfaz gráfica de construcción de interfaces](./interfaz-grafica-de-construccion-de-interfaces)
+- [Interfaz gráfica de manipulación de JSON](./interfaz-grafica-de-manipulacion-de-json)
+- [Interfaz gráfica de manipulación de XML](./interfaz-grafica-de-manipulacion-de-xml)
+- [Sistema de aleatorizacion](./sistema-de-aleatorizacion)
+- [Sistema de base de datos IndexedDB](./sistema-de-base-de-datos-indexeddb)
+- [Sistema de bases de datos](./sistema-de-bases-de-datos)
+- [Sistema de comunicaciones](./sistema-de-comunicaciones)
+- [Sistema de diálogos](./sistema-de-dialogos)
+- [Sistema de fechas](./sistema-de-fechas)
+- [Sistema de hooks](./sistema-de-hooks)
+- [Sistema de internacionalización](./sistema-de-internacionalizacion)
+- [Sistema de manipulación de JSON](./sistema-de-manipulacion-de-jsons)
+- [Sistema de módulos](./sistema-de-modulos)
+- [Utilidades de texto](./utilidades-de-texto)
