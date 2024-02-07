@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Validador de Sintaxis con PEG.js</title>
+  <title>Validador de novelas-graficas-language</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -69,48 +69,23 @@
   </style>
 </head>
 <body>
-  <h1>Validador de allnulled/contracts</h1>
+  <h1>Validador de allnulled/mineria-de-software/validador-de-sintaxis-pegjs/lenguajes/novelas-graficas</h1>
   <div class="container">
-    <textarea id="inputText" placeholder="Introduce el texto a analizar">contract app {
-  class Utilities {
-    Database database;
-    Framework framework;
-    Utilities constructor(Framework framework);
-  }
-  class Database {
-    String host;
-    String port;
-    String user;
-    String password;
-    Framework framework;
-    Database constructor(Framework framework, String host, String port, String user, String password);
-    Object schema();
-    Array select(String table, Array where, Array order, Integer page, Integer items, String search);
-    Object insert(String table, Object values);
-    Object update(String table, Integer id, Object values);
-    Object delete(String table, Integer id);
-  }
-  class Framework {
-    Utilities utilities;
-    Database database;
-    Framework constructor(Object credentials);
-  }
-  Framework get_framework();
-}</textarea>
+    <textarea id="inputText" placeholder="Introduce el texto a analizar"></textarea>
     <div style="height: 4px;"></div>
     <button onclick="validateSyntax()">Validar Sintaxis</button>
     <pre id="result"></pre>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pegjs/0.9.0/peg.js"></script>
-  <script src="contracts.js"></script>
+  <script src="novelas-graficas.js"></script>
   <script>
 
     function validateSyntax() {
       const inputText = document.getElementById('inputText').value;
 
       try {
-        const result = ContractsLanguage.parse(inputText);
+        const result = NovelasGraficasLanguage.parse(inputText);
         document.getElementById('result').innerText = JSON.stringify(result, null, 2);
         document.getElementById('inputText').classList.remove('error-highlight');
       } catch (error) {

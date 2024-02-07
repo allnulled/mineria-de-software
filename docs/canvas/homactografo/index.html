@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ser humano Bailando en Canvas</title>
+</head>
+<body>
+    <canvas id="humanCanvas" width="400" height="400"></canvas>
+
+    <script>
+        // Obtener el canvas y su contexto
+        const canvas = document.getElementById('humanCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Posición inicial del ser humano
+        let x = 200;
+        let y = 100;
+
+        // Dirección del movimiento (arriba o abajo)
+        let direction = 1; // 1 para abajo, -1 para arriba
+
+        // Variables para el moonwalk
+        let step = 0;
+        const stepSize = 0.1;
+        const legAngle = Math.PI / 6;
+
+        // Dibujar la función que dibuja al ser humano
+        function drawHuman() {
+            // Limpiar el canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Dibujar la cabeza (una elipse)
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2);
+            ctx.fillStyle = 'beige';
+            ctx.fill();
+
+            // Dibujar el tronco (un palo)
+            ctx.beginPath();
+            ctx.moveTo(x, y + 30);
+            ctx.lineTo(x, y + 150);
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = 'lightblue';
+            ctx.stroke();
+
+            // Dibujar los brazos (dos líneas)
+            ctx.beginPath();
+            ctx.moveTo(x, y + 80);
+            ctx.lineTo(x - 80 * Math.cos(legAngle), y + 80 * Math.sin(legAngle) + 80);
+            ctx.moveTo(x, y + 80);
+            ctx.lineTo(x + 80 * Math.cos(legAngle), y + 80 * Math.sin(legAngle) + 80);
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = 'lightblue';
+            ctx.lineJoin = 'round'; // Articulaciones en los codos
+            ctx.stroke();
+
+            // Dibujar las piernas (dos líneas)
+            ctx.beginPath();
+            ctx.moveTo(x, y + 150);
+            ctx.lineTo(x - 50 * Math.sin(step), y + 250);
+            ctx.lineTo(x + 50 * Math.sin(step), y + 250);
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = 'lightblue';
+            ctx.lineJoin = 'round'; // Articulaciones en las rodillas
+            ctx.stroke();
+        }
+
+        // Función para hacer que el ser humano baile el moonwalk
+        function moonwalk() {
+            // Cambiar la dirección del movimiento cuando llega al límite superior o inferior del canvas
+            if (y <= 50 || y >= canvas.height - 150) {
+                direction *= -1; // Cambiar la dirección
+            }
+
+            // Mover el ser humano en la dirección actual
+            y += direction * 5; // Velocidad de movimiento
+
+            // Actualizar el paso del moonwalk
+            step += stepSize;
+
+            // Dibujar al ser humano en su nueva posición
+            drawHuman();
+
+            // Llamar a la función moonwalk() nuevamente después de un corto período de tiempo para animar el baile
+            requestAnimationFrame(moonwalk);
+        }
+
+        // Dibujar al ser humano inicialmente
+        drawHuman();
+
+        // Comenzar el moonwalk
+        moonwalk();
+    </script>
+</body>
+</html>

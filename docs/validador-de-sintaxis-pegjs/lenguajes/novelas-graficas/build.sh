@@ -1,0 +1,1 @@
+npx pegjs --format globals --export-var NovelasGraficasLanguage novelas-graficas.pegjs

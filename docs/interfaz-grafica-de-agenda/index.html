@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda con IndexedDB</title>
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.5.10/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.5.10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <v-app>
+            <v-container>
+                <v-row>
+                    <v-col cols="12">
+                        <v-date-picker v-model="selectedDate" @input="updateEvents"></v-date-picker>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12">
+                        <v-text-field v-model="newEvent" label="Nuevo evento"></v-text-field>
+                        <v-btn color="primary" @click="addEvent">Agregar evento</v-btn>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12">
+                        <v-list>
+                            <v-list-item v-for="(event, index) in events" :key="index">
+                                <v-list-item-content>
+                                    <v-list-item-title>{{ event.name }}</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-action>
+                                    <v-btn color="error" @click="deleteEvent(index)">Eliminar</v-btn>
+                                </v-list-item-action>
+                            </v-list-item>
+                        </v-list>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-app>
+    </div>
+
+    <script>
+        const dbName = 'agendaDB';
+        const storeName = 'events';
+
+        const openDB = () => {
+            return new Promise((resolve, reject) => {
+                const request = window.indexedDB.open(dbName, 1);
+                request.onerror = () => {
+                    reject('Error al abrir la base de datos');
+                };
+                request.onsuccess = () => {
+                    resolve(request.result);
+                };
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+                };
+            });
+        };
+
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: {
+                selectedDate: new Date().toISOString().substr(0, 10),
+                newEvent: '',
+                events: []
+            },
+            async mounted() {
+                const db = await openDB();
+                this.db = db;
+                this.updateEvents();
+            },
+            methods: {
+                async updateEvents() {
+                    const date = moment(this.selectedDate).format('YYYY-MM-DD');
+                    const transaction = this.db.transaction([storeName], 'readonly');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.getAll();
+                    request.onsuccess = () => {
+                        this.events = request.result.filter(event => event.date === date);
+                    };
+                },
+                async addEvent() {
+                    if (this.newEvent.trim() !== '') {
+                        const date = moment(this.selectedDate).format('YYYY-MM-DD');
+                        const event = {
+                            name: this.newEvent,
+                            date: date
+                        };
+                        const transaction = this.db.transaction([storeName], 'readwrite');
+                        const store = transaction.objectStore(storeName);
+                        const request = store.add(event);
+                        request.onsuccess = () => {
+                            this.updateEvents();
+                            this.newEvent = '';
+                        };
+                    }
+                },
+                async deleteEvent(index) {
+                    const eventId = this.events[index].id;
+                    const transaction = this.db.transaction([storeName], 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.delete(eventId);
+                    request.onsuccess = () => {
+                        this.updateEvents();
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+</html>
