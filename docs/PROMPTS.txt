@@ -52,3 +52,28 @@
 7. Ahora para un título?
 8. Podrías montarlo para que en lugar de aceptar contenido en texto, los tabs puedan pasarse como slots?
 9. Puedes hacerlo para una etiqueta (label)?
+
+---------
+
+
+1. "Puedes hacer un ejemplo de sniffer en C para Linux?"
+2. "Puedes hacer un gestor de stock en C?"
+3. "Puedes recrear una librería tipo Pinia, Vuex, y así?"
+4. "Puedes hacer que el método setState haga lo mismo, pero de la siguiente manera. En lugar de aceptar 1 Object, lo que haría sería recibir 2 parámetros: 1 array de Strings indicando, propiedad a propiedad, el lugar exacto del Store que se va a modificar, y un segundo parámetro libre con el valor que se va a asignar. Puedes?"
+5. "Puedes hacer una aplicación en HTML5 que sea un REPL basado en diálogos en forma de ventanas de Windows 7 usando la librería win7.css?"
+6. "Puedes enseñarme cómo se escribiría el ensamblador de un boot de un PC?"
+7. "Puedes hacer una aplicación en HTML5 que te permita escribir, por un lado, en Markdown, y por el otro ver el resultado en HTML?"
+8. "Puedes hacer que soporte un sistema de carpetas y ficheros basado en IndexedDB para poder gestionar diferentes documentos markdown y agruparlos en carpetas?"
+9. "Puedes añadirle un botón para crear ficheros en la raíz, y otro para crear carpetas en la raíz?"
+10. "Podrías hacer un framework con esta estructura en PHP?"
+11. "Puedes llenar los métodos?"
+12. "Puedes hacer lo mismo para el insert?"
+13. "Y ahora el update?"
+14. "Y el delete?"
+15. "Puedes hacer una aplicación en HTML5 que use IndexedDB mediante la librería DexieDB, que tenga una base de datos con ficheros y carpetas (o nodos simplemente), y pueda navegar a través de ellos con una interfaz hecha con HTML5 y Vue.js v2?"
+16. "Puedes hacer para que se puedan añadir ficheros en la raíz de nodos?"
+17. "Tú puedes hacer que en la primera vez que se cree la base de datos de Dexie, se cree una primera instancia de fichero?"
+18. "Y en todo caso, le podemos poner una cuenta atrás de 3 segundos para que no esté guardando a cada letra que se cambia si se está escribiendo rápido, ya que podría afectar a la experiencia de usuario, no?"
+19. "Ya, igual es excesiva la carga de llamadas que se pueden hacer, no? Pero bueno, es a una base de datos local, no hace daño a nadie ni gasta datos, ni nada, no?"
+20. "Y en todo caso, le podemos poner una cuenta atrás de 3 segundos para que no esté guardando a cada letra que se cambia si se está escribiendo rápido, ya que podría afectar a la experiencia de usuario, no?"
+21. "De momento lo voy a dejar así, pero mira qué bien ha quedado, ChatGPT:"
